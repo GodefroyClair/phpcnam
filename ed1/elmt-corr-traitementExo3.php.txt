@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+<!--  le but de l'exercice est de comprendre le pouvoir de php : il peut générer du code html, css ou du simple texte qui sera executé par le navigateur  -->
+<!-- Commme on dit "avec de grand pouvoir viennent de grandes responsabilités", nous verrons donc par la suite les risques associés à ce genre de pratique -->
+
+        <meta charset="utf-8"/>
+<!-- Il faut afficher le titre ici... Il n'est pas nécessaire d'utiliser isset() ici mais c'est une bonne habitude à prendre -->
+        <title>????</title>
+        <meta http-equiv="Content-Language" content="fr" />
+        <meta name="author" content="Godefroy Clair" />
+        <meta name="generator" content="vim" />
+        <meta name="keywords" lang="fr" content="" />
+        <meta name="description" content="" />
+        <style>
+/* Afficher le style. Idem, isset() n'est pas nécessaire mais mieux vaut se mettre en tête l'idée de vérifier l'existence d'une variable avant de l'afficher */
+        </style>
+    </head>
+    <body>
+        <?php
+            echo $_GET['html'];
+        Ici on affiche le code html. Pour se rendre compte des problèmes de sécurité, essayer de passer du code qui pourrait gêner l utilisateur.
+        Par exemple, du code javascript...
+         ?> 
+    </body>
+
+</html>
+

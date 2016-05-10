@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>exo1</title>
+        <meta name="author" content="Godefroy Clair"/>
+        <meta name="description" content"solution exo1 ed1 php"/>
+        <style>
+            /*this pseudo-class gives you the ability to show all inputs that have not YET been well completed*/
+            [required]:invalid {
+                box-shadow: 0 0 3px 1px red;
+            }
+
+            .block{
+                margin:10px;
+            }
+            form{
+                border: 2px solid black;
+                padding: 5px;
+                width:800px;
+            }
+            label {
+                display: inline-block;
+                width: 150px;
+                text-align: left;
+                vertical-align: top;
+            }
+            textarea {
+                vertical-align: top;
+                width:360px;
+                height:50px;
+            }
+            fieldset  {
+                border:3px solid blue;
+                margin-bottom:3px;
+                width:700px;
+            }
+            select {
+            }
+            input[type="checkbox"], input[type="radio"]{
+                width:auto;
+            }
+            input[type=submit]{
+                margin:25px 0px 0px 10px;
+                width:120px;
+                line-height: 18px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Exercice 1 : récapitulatif de formulaire</h1>
+        <!-- rappel sur les attributs :
+        method & action : pour le tag form
+        type : pour catégoriser un input
+        class & id : pour le style et js
+        for (& id) : pour les labels
+        name : nom de la variable passée au fichier de traitement ([] = array)
+        value : valeur passée au fichier de traitement (php)
+        -->
+        <form method="post" action="traitementExo1.php">
+            <div class="block">
+                <label for="nom">Nom : </label>
+                <input type="text" name="nom" id="nom" required>
+            </div>
+
+            <div class="block">
+                <label for="mdp">Mot de passe : </label>
+                <input type="password" name="mdp" id="mdp" required>
+            </div>
+
+            <div class="block">
+                <fieldset>
+                    <legend>Sexe : </legend>
+                    <input type="radio" name="sexe" id="f" value="feminin" required>
+                    <label for="f">féminin</label>
+                    <input type="radio" name="sexe" id="m" value="masculin" required>
+                    <label for="m">masculin</label>
+                </fieldset>
+            </div>
+
+            <div class="block">
+                <label for="lesvilles">Choisissez une ville : </label>
+                <select name="lesvilles" id="lesvilles" required>
+                    <option ></option>
+                    <option value="paris">Paris</option>
+                    <option value="marseille">Marseille</option>
+                    <option value="lyon">Lyon</option>
+                    <option value="bordeaux">Bordeaux</option>
+                </select>
+            </div>
+
+            <div class="block">
+                <fieldset>
+                    <legend>Vos passions : </legend>
+
+                    <input type="checkbox" name="passions[]" id="peinture" value="Peinture" >
+                    <label for="peinture">Peinture</label>
+
+                    <input type="checkbox" name="passions[]" id="tennis" value="Tennis" >
+                    <label for="">Tennis</label>
+
+                    <input type="checkbox" name="passions[]" id="programmation" value="Programmation" >
+
+                    <label for="programmation">Programmation</label>
+
+                    <input type="checkbox" name="passions[]" id="domotique" value="Domotique" >
+                    <label for="domotique">Domotique</label>
+                </fieldset>
+            </div>
+
+            <div class="block">
+                <label for="animaux">Vos animaux de compagnie : </label>
+                <select name="animaux[]" id="animaux" multiple>
+                    <option></option>
+                    <option value="Chien">Chien</option>
+                    <option value="Chat">Chat</option>
+                    <option value="Cochon d'Inde">Cochon d'Inde</option>
+                </select>
+            </div>
+
+            <input type="submit"/> 
+        </form>
+    </body>
+</html>

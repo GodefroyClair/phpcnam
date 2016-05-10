@@ -1,0 +1,84 @@
+
+##RMQ :
+
+##echo shortcut
+<? echo ‘’?> <=> <= ‘’=>
+
+##opérateur ternaire : 
+/* basic */
+$var = 5;
+$var_sup_a_deux = ($var > 2 ? true : false); // re,voie true
+
+##ô ex :
+/* raccourci 2 */
+$message = 'Hello '.($user->is_logged_in() ? $user->get(’nom’) : ‘invité’);
+/* raccourci 3 */
+$message = 'Hello '.($user->get(’nom’) ?: ‘invité’);
+/* echo, inline */
+ echo 'Vous êtes ', ($moyenne >19 ? 'un génie' : 'personne');
+
+##trucs & astuces :
+$ php -a // pour tester ses commandes
+
+########################################################
+####################PHP 2ème cours :####################
+########################################################
+
+#Points principaux :
+1) PHP est un "métalangage" : son interprétation des scripts génère du code (html) qui sera interprété à son tour (par le navigateur client) pour générer un affichage.
+
+2) Deux façons de générer du code html à partir d'un script PHP :
+<php if(1condition){
+     echo ‘<p>test</p>’; 
+}?>
+//OU
+<php if(1condition){ ?> 
+<p>test</p> 
+<php } ?>
+
+3) Headers et cookies : Comment procèdent Apache & PHP pour générer la page reçue par le client. Concept : une usine à fabriquer un packet  html à partir du pseudo-html & du php. Le pseudo html est transmis et le php est interprêté.
+
+Conséquence : headers( y compris cookies & session) doivent être envoyés avant la génération du body.
+
+4) HTTP est « sans état » (‘stateless’)  : La réponse ne dépend pas du contexte (ou pour le dire autrement, il n’y a pas de contexte). Machine à état : chaque action amène une réaction différente en fonction de l’état actuel (contexte). 
+Pas de contexte => connexion ephémère. Comment maintenir une connexion au-delà d’une requête ? Les sessions et les cookies…
+
+
+#####################################################################
+####################### SESSIONS & COOKIES  #########################
+#####################################################################
+
+Une communication avec le protocole HTTP est « sans état » : les communicants ont « alzheimers », ils oublient tout dès que la communication est terminée.
+Pour remédier à ce problème, il faut que le client et le serveur partage un contexte afin qu’il puisse se rappeler leur histoire.
+C’est à ça que serve Cookies et Sessions : il donne au serveur et au client un mécanisme permettant d’avoir une « mémoire » commune (au sens figuré).
+
+Rmq : les cookies ont d’autres utilité et les sessions **s’appuient** sur les cookies (généralement). 
+
+Pour arriver à maintenir ce contexte, il y a deux problèmes techniques :
+1) Le client n’avait pas de mémoire de stockage allouée au départ (accès interdit au sys. de fichier du SE)
+2) Le protocole http ne permet au serveur de savoir QUI le contacte.
+
+Les cookies sont un mécanisme de stockage de données côté client, les sessions sont un protocole de contextualisation de communication http par la transmission d’un numéro unique.
+
+
+##Cookie = stockage.
+Avec les cookies, on résout le premier problème : le client peut stocker dans les cookies des infos sur les communications qu’il. Comment ? Simple système de mémoire alloué. (très simple : pas de threads…). Plain text.
+De plus, les cookies sont envoyés au serveur à chaque requête du client vers le domaine. Et, le serveur peut envoyer un cookie dans sa réponse (header « set-cookie » dans les headers http÷
+
+Exemples:
+ The server responds with two Set-Cookie headers:
+HTTP/1.0 200 OK
+Content-type: text/html
+Set-Cookie: theme=light
+Set-Cookie: sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT
+The client send its cookies :
+GET /spec.html HTTP/1.1
+Host: www.example.org
+Cookie: theme=light; sessionToken=abc123
+
+A Typical Cookie ExchangeA Typical Cookie Exchange
+
+##Sessions = identifiants de la communication
+Avec les sessions, le client et le serveur partage un numéro (non secret par défaut !!) qui leur permettent de se rappeler leur passé (besoin de sérialisation):
+Comment ? il faut que les deux se transmettent ces sessions : systm
+

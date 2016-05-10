@@ -1,0 +1,149 @@
+#####Little things to know :
+//define constant :
+define(‘pie’,3.14)
+
+//important cast :
+//towards bolean :
+//  string :
+//    empty string and "0" => false 
+//    autre => true
+//  array : 
+//    an array with no element => false
+
+
+               #################################
+               #######conditional statements####
+               #################################
+
+####
+#IF#
+####
+
+two ways to embed php in html :
+<?php	
+if($var 	){
+ echo $var . ‘ ‘ . $var2;
+?>
+//OU
+<?php if($var 	){ ?>
+ echo $var . ‘ ‘ . $var2;
+<?php }else if ?>
+
+########
+#SWITCH#
+########
+
+switch(val){
+case v1:inst v1;
+...
+case vn:inst vn ;
+default : inst par defaut}
+switch($h){
+case "1":echo "une heure du mat et quelques";break;
+case "2":echo "II";
+case "3":echo "2 ou 3";
+case "4":echo "2 ou 3 ou 4";break;
+case "5":echo "5";break;
+default:
+echo " plus de 6h";
+}
+###################
+#if syntaxic sugar#
+###################
+
+(cond)?valSiVrai:valSiFaux
+
+
+
+                 ##########################
+                 ##########String##########
+                 ##########################
+
+remove white space : trim
+escaping : htmlentities ou htmlspecialchars() //against garbage pages… & for security
+
+difference between ‘==‘ & ‘===‘ : the 2nd doesn’t cast
+
+
+                 ##########################
+                 ##########Arrays##########
+                 ##########################
+
+##Base##
+
+indexed vs associative
+unique keys
+$array[fred] == $array[‘fred’]
+
+$family[]=« Fred » adds at the end of the array
+
+affectation :
+1) $price= array(‘gasket’ => 15.29, ‘wheel’ => 75.15)
+2) $price = [‘gasket’ => 15.29, ‘wheel’ => 75.15]
+3) $days = [« Monday », « Tuesday », etc.]
+
+##function on Arrays##
+
+ split($sep, $chaine) ; transform a string in array
+($sep is the separator). DEPRECATED 
+use explode with string or preg_split with regex (see pre family : preg_match, preg_grep, preg_quote, based on PERL REGEX)
+use implode (alias join) to do the reverse of explode
+
+
+
+##########################
+####loop on a array :#####
+##########################
+
+#### 1) FOR
+<?php
+    for ($i = 0; $i < count($array); ++$i) {
+        print $array[$i];
+    }
+?>
+
+#### 2) WHILE
+<?php
+    //while ((list($var, $val) = each($array)) == true) 
+    while (list($var, $val) = each($array)) {
+        print "$var is $val\n";
+    }
+?>
+### Each array return the « next » pair of (key,value) in an array until then end 
+### List fetch an array and puts it into two values chosen as arguments.
+#### each is return false if over the end (si le pointeur interne de tableau est au-delà de la fin du tableau, each() retourne FALSE.)
+
+
+#### 3) FOREACH 
+<?php
+##equal true if current of value of array not empty
+foreach($array as $val) {
+    print $val;
+}
+?>
+
+#### 4) FOREACH 2
+<?php
+foreach ($array as $key => $val) {
+    print "$key = $val\n";
+}
+?>
+
+
+
+
+
+#####Examples :##########
+
+##self-processing page :
+
+##########################################################
+#Example 1 (from « Programming PHP » ed. O’Reilly)       #
+#A self-processing temperature-conversion page (temp.php)###########################################################<html><head><title>Temperature Conversion</title></head><body><?php if ($_SERVER['REQUEST_METHOD'] == 'GET') { ?>    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">        Fahrenheit temperature:        <input type="text" name="fahrenheit" /><br />        <input type="submit" value="Convert to Celsius!" />     </form>
+<?php } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {     $fahrenheit = $_POST['fahrenheit'];     $celsius = ($fahrenheit - 32) * 5 / 9;     printf("%.2fF is %.2fC", $ fahrenheit, $celsius);} else {     die("This script only works with GET and POST requests.");} ?>
+</body>
+</html>
+
+##########################################################
+#Example2. (from « Programming PHP » ed. O’Reilly)       #
+#Temperature conversion using the GET method (temp2.php) ###########################################################<html><head><title>Temperature Conversion</title></head><body><?php $fahrenheit = $_GET['fahrenheit'];if (is_null($fahrenheit)) { ?>    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">        Fahrenheit temperature:        <input type="text" name="fahrenheit" /><br />        <input type="submit" value="Convert to Celsius!" />    </form><?php } else {    $celsius = ($fahrenheit - 32) * 5 / 9;    printf("%.2fF is %.2fC", $fahrenheit, $celsius);} ?></body></html>

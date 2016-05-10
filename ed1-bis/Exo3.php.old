@@ -1,0 +1,14 @@
+<?php 
+$database = new PDO('mysql:host=localhost; dbname=garagiste', '', 'bolide*!1');
+$database = new mysqli('localhost','garagiste');
+
+    $sql = "SELECT * FROM GARAGE";
+
+$result = $database->query($sql);
+
+while ($row = $result->fetch()){
+    echo $row['a.name'] . " is the author of: " . $row['b.title'] ;
+    echo "<br/>";
+}
+
+?>
